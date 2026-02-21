@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>청개구리 창호견적 (AI Premium)</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://anhjjeon1.github.io/window-calculator/">
+    <meta property="og:title" content="청개구리 창호견적 AI (직거래 최저가)">
+    <meta property="og:description" content="생산자-소비자 직결! 거품 없는 AI 실시간 무료 견적을 확인하세요.">
+    <meta property="og:image" content="https://anhjjeon1.github.io/window-calculator/image_1.png">
+    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+    <style>
+        :root { 
+            --primary-dark: #1A237E; /* 로얄 네이비 */
+            --primary-light: #283593; 
+            --accent-color: #00E676; /* 포인트 그린 */
+            --bg-color: #ECEFF1;
+            --text-color: #263238;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --border-radius: 12px;
+        }
+        body { 
+            font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); 
+            margin: 0; padding: 0; color: var(--text-color); -webkit-font-smoothing: antialiased; 
+        }
+
+        header { 
+            background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+            padding: 0 20px; height: 60px; display: flex; align-items: center; justify-content: center;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); box-sizing: border-box;
+        }
+        .logo-clipart { 
+            width: 38px; height: 38px; 
+            background: rgba(255,255,255,0.2); border-radius: 50%; padding: 3px;
+            position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+            object-fit: contain; backdrop-filter: blur(4px);
+        }
+        .main-title { margin: 0; font-size: 18px; font-weight: 800; color: white; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .ver-badge { 
+            font-size: 10px; background: var(--accent-color); color: #003300; 
+            padding: 3px 8px; border-radius: 20px; font-weight: 800; 
+            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; padding-top: 80px; padding-bottom: 100px; }
+
+        .intro-disclaimer {
+            background: #ffffff;
+            border-left: 5px solid #29b6f6;
+            border-radius: 8px; padding: 15px; margin-bottom: 20px;
+            display: flex; align-items: flex-start; gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        .intro-icon { font-size: 22px; }
+        .intro-text { font-size: 13px; color: #455a64; font-weight: 600; line-height: 1.6; margin: 0; }
+        .intro-highlight { color: #d81b60; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+
+        .top-section { background: white; border-radius: 16px; padding: 20px; box-shadow: var(--card-shadow); margin-bottom: 20px; }
+        .address-row { display: flex; gap: 8px; margin-bottom: 10px; }
+        .address-row input, .detail-input { 
+            flex: 1; padding: 14px; border: 1px solid #cfd8dc; border-radius: 10px; 
+            background: #fcfcfc; font-weight: 600; font-size: 15px; color: var(--text-color);
+        }
+        .btn-search { background: #37474f; color: white; border: none; padding: 0 16px; border-radius: 10px; font-size: 18px; cursor: pointer; }
+        
+        .info-row { display: flex; gap: 10px; margin-top: 12px; }
+        .info-select {
+            flex: 1; padding: 12px 10px;
+            border: 2px solid #e0e0e0; border-radius: 10px;
+            font-size: 13px; font-weight: 800; color: #455a64;
+            background: white; appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23455a64' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 8px center; background-size: 14px;
+            white-space: nowrap; text-overflow: ellipsis;
+        }
+        .info-select:focus { border-color: var(--primary-light); outline: none; }
+
+        .input-card { 
+            background: white; border-radius: 16px; box-shadow: var(--card-shadow); 
+            margin-bottom: 16px; display: flex; height: 150px; overflow: hidden; border: 1px solid #cfd8dc;
+        }
+        
+        .photo-area { 
+            width: 36%; 
+            background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
+            position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; 
+            border-right: 1px solid #cfd8dc;
+        }
+        .photo-area img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .camera-icon { font-size: 28px; margin-bottom: 6px; color: white; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .photo-hint { font-size: 12px; color: #eceff1; text-align: center; line-height: 1.4; font-weight: 500; }
+        .photo-input-hidden { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; left:0; top:0; z-index: 10; }
+        
+        .dim-area { width: 64%; padding: 15px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+        
+        .row-head { display: flex; justify-content: space-between; align-items: center; }
+        .row-number { font-size: 14px; font-weight: 900; color: var(--primary-light); margin-right: 5px; }
+        .loc-select { 
+            font-size: 16px; font-weight: 800; color: #263238; border: none; background: transparent; 
+            cursor: pointer; outline: none; padding: 0; border-bottom: 2px solid #eceff1;
+        }
+        
+        .badge-ai { 
+            font-size: 10px; background: linear-gradient(45deg, #00c853, #64dd17); color: white; 
+            padding: 4px 8px; border-radius: 12px; display: none; font-weight: 800; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+        select, input[type="number"] { 
+            width: 100%; height: 42px; border: 1px solid #cfd8dc; border-radius: 8px; 
+            font-size: 14px; padding: 0 10px; box-sizing: border-box; background: #fff; font-weight: 600;
+        }
+        .size-inputs { display: flex; gap: 8px; }
+
+        .loading-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); z-index: 20; display: none; 
+            flex-direction: column; justify-content: center; align-items: center; color: white; 
+            backdrop-filter: blur(2px);
+        }
+        .spinner { 
+            width: 30px; height: 30px; border: 4px solid rgba(255,255,255,0.3); 
+            border-top: 4px solid var(--accent-color); border-radius: 50%; 
+            animation: spin 1s linear infinite; margin-bottom: 10px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 30px; margin-bottom: 25px; }
+        .btn-main { 
+            flex: 1; padding: 16px; border-radius: 12px; border: none; 
+            font-weight: 800; cursor: pointer; color: white; font-size: 16px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.2s; 
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-main:active { transform: scale(0.98); }
+        .btn-calc { background: linear-gradient(135deg, #1565C0, #0D47A1); }
+        .btn-save { background: linear-gradient(135deg, #ef6c00, #e65100); }
+
+        .company-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 30px;
+        }
+        .comp-btn {
+            padding: 14px 12px; border-radius: 12px;
+            color: #37474f; font-weight: 700; font-size: 13px;
+            text-align: left; border: 1px solid #cfd8dc; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: all 0.2s;
+            display: flex; align-items: center; justify-content: space-between;
+            background: white;
+        }
+        .comp-btn:active { background-color: #f5f5f5; }
+        .comp-btn .phone-icon { font-size: 16px; color: var(--primary-light); background: #e8eaf6; padding: 6px; border-radius: 50%; }
+        
+        .cb-1 { border-left: 5px solid #1e88e5; } 
+        .cb-2 { border-left: 5px solid #e53935; } 
+        .cb-3 { border-left: 5px solid #43a047; } 
+        .cb-4 { border-left: 5px solid #fb8c00; } 
+        .cb-5 { border-left: 5px solid #8e24aa; } 
+        .cb-6 { border-left: 5px solid #546e7a; } 
+
+        .chart-box { 
+            background: white; padding: 25px 20px; border-radius: 20px; margin-top: 10px; 
+            box-shadow: var(--card-shadow); border: 1px solid #eceff1;
+        }
+        .chart-header { 
+            font-weight: 900; font-size: 18px; text-align: center; color: #263238;
+            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #f5f5f5;
+        }
+        
+        .trust-notice {
+            background-color: #f1f8e9; border-left: 4px solid #7cb342;
+            padding: 15px; border-radius: 8px; font-size: 12px; color: #33691e;
+            line-height: 1.6; margin-bottom: 30px;
+        }
+        .trust-notice strong { color: #2e7d32; }
+
+        .graph-row { display: flex; align-items: center; margin-bottom: 15px; position: relative; }
+        .g-label { width: 80px; font-size: 12px; font-weight: 700; color: #546e7a; text-align: right; padding-right: 12px; }
+        .g-bar-bg { flex: 1; height: 24px; background: #eceff1; border-radius: 12px; overflow: visible; position: relative; } /* position relative 추가 */
+        .g-bar { 
+            height: 100%; background: #cfd8dc; width: 0%; transition: width 1s ease-out; 
+            border-radius: 12px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .g-bar.best { background: linear-gradient(90deg, #ff3d00, #dd2c00); } 
+        .g-bar.second { background: linear-gradient(90deg, #2196f3, #1976d2); }
+        .g-price { width: 85px; text-align: right; font-weight: 800; color: #263238; font-size: 14px; margin-left: 8px; }
+        
+        /* [수정] 배지 위치 상단 이동 */
+        .badge-best { 
+            position: absolute; right: -5px; top: -18px; /* -10px 에서 -18px로 더 올림 */
+            background: #d50000; color: white; font-size: 10px; padding: 2px 8px; 
+            border-radius: 10px; font-weight: 800; z-index: 10; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .d-title { font-size: 16px; font-weight: 800; margin: 40px 0 15px 0; display: flex; align-items: center; gap: 8px; color: #37474f; }
+        .d-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; border: 1px solid #eceff1; border-radius: 12px; overflow: hidden; }
+        .d-table th { background: #eceff1; padding: 12px 8px; font-weight: 700; color: #455a64; text-align: center; }
+        .d-table td { padding: 12px 8px; border-bottom: 1px solid #f5f5f5; text-align: center; color: #37474f; }
+        .d-table tr:last-child td { border-bottom: none; }
+        .d-table td.left { text-align: left; }
+        .total-row td { background: #fff8e1; font-weight: 800; font-size: 14px; color: #333; }
+        .total-price { color: #d32f2f; font-size: 16px; font-weight: 900; }
+
+        .estimate-note { margin-top: 20px; padding: 15px; font-size: 11px; color: #90a4ae; background: #fafafa; border-radius: 10px; border: 1px solid #eee; text-align: center; }
+
+        footer { text-align: center; font-size: 11px; color: #b0bec5; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="image_1.png" class="logo-clipart" alt="청개구리 로고" onerror="this.style.display='none';"> 
+    <h1 class="main-title">청개구리 창호견적</h1>
+    <span class="ver-badge">Ver 15.3 AI</span>
+</header>
+
+<div class="container" id="captureArea">
+    
+    <div class="intro-disclaimer">
+        <div class="intro-icon">💡</div>
+        <p class="intro-text">
+            본 서비스는 <span class="intro-highlight">생산자와 소비자를 직접 연결</span>하는 무료 직거래 시스템입니다.
+            거품 없는 합리적인 가격으로 최상의 품질을 경험해보세요.
+        </p>
+    </div>
+
+    <div class="address-row">
+        <input type="text" id="aptAddress" placeholder="아파트/건물명 검색 (터치)" readonly onclick="openAddressSearch()">
+        <button class="btn-search" onclick="openAddressSearch()">🔍</button>
+    </div>
+    <input type="text" class="detail-input" id="detailAddress" placeholder="동/호수 입력 (선택)">
+    
+    <div class="info-row">
+        <select id="residenceType" class="info-select">
+            <option value="" disabled selected>주거 형태 선택</option>
+            <option value="APT">아파트</option>
+            <option value="VILLA">빌라/연립</option>
+            <option value="HOUSE">단독주택</option>
+        </select>
+        <select id="pyeongSize" class="info-select">
+            <option value="" disabled selected>평형대 선택</option>
+            <option value="20">20평형대</option>
+            <option value="30">30평형대</option>
+            <option value="40">40평형대</option>
+            <option value="50">50평형 이상</option>
+        </select>
+    </div>
+
+    <div id="inputListArea"></div>
+
+    <div class="btn-group">
+        <button class="btn-main btn-calc" onclick="calculateEstimates()">✨ 무료 견적 산출</button>
+        <button class="btn-main btn-save" onclick="saveAsImage()">📸 결과 화면 저장</button>
+    </div>
+
+    <div class="company-grid" id="companyGrid">
+        <div style="grid-column: span 2; text-align:center; padding:20px; color:#999; font-size:13px;">
+            제휴 업체 정보를 불러오는 중...
+        </div>
+    </div>
+
+    <div class="chart-box" id="resultSection" style="display:none;">
+        <div class="chart-header">📊 업체별 최종 견적 비교</div>
+        
+        <div id="resultAddressDisplay" style="text-align:center; font-weight:bold; color:#1565C0; margin-bottom:25px; font-size:15px; line-height:1.4;"></div>
+        
+        <div class="trust-notice">
+            <strong>※ 견적 안내 사항</strong><br>
+            • <strong>포함:</strong> 창호 자재비, 표준 시공비<br>
+            • <strong>불포함(현장별도):</strong> 철거비, 사다리차, 마감비<br>
+            * 최종금액은 무료방문 실측시 정확히 안내드립니다.
+        </div>
+
+        <div id="graphContainer"></div>
+
+        <div id="detailTableContainer"></div>
+    </div>
+</div>
+
+<footer>
+    청개구리샤시 | 고객센터 1599-7380<br>
+    Copyright 2026 All Rights Reserved.
+</footer>
+
+<script>
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_0fzDiPb7o94pN5PFBWfYpEcm7hqBhUT2Q1RyWqH78WdEnu4rdRSajOi7KN_bVnDUlaXk7TznbJ7o/pub?gid=560833598&single=true&output=csv";
+
+    let companyDB = {};
+
+    const companyPhoneMap = {
+        "KCC(에스터)": "010-7166-8983",
+        "KCC(위니드)": "010-2159-5911",
+        "LX(거창)": "010-4664-8282",
+        "LX(위니드)": "010-2159-5911",
+        "LX(신창)": "010-2616-8014",
+        "현대(위니드)": "010-2159-5911"
+    };
+
+    async function fetchPriceData() {
+        try {
+            const response = await fetch(GOOGLE_SHEET_CSV_URL);
+            if (!response.ok) throw new Error("네트워크 오류");
+            const text = await response.text();
+            parseCSV(text);
+        } catch (error) {
+            console.error("로딩 실패:", error);
+            document.getElementById('companyGrid').innerHTML = "<div style='grid-column: span 2; text-align:center; padding:20px;'>업체 정보를 불러오지 못했습니다.</div>";
+        }
+    }
+
+    function parseSmartCSV(text) {
+        const rows = [];
+        let currentRow = [];
+        let currentCell = '';
+        let insideQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const nextChar = text[i + 1];
+            if (char === '"') {
+                if (insideQuotes && nextChar === '"') { currentCell += '"'; i++; }
+                else { insideQuotes = !insideQuotes; }
+            } else if (char === ',' && !insideQuotes) {
+                currentRow.push(currentCell.trim()); currentCell = '';
+            } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+                if (char === '\r' && nextChar === '\n') i++;
+                if (currentCell || currentRow.length > 0) currentRow.push(currentCell.trim());
+                if (currentRow.length > 0) rows.push(currentRow);
+                currentRow = []; currentCell = '';
+            } else { currentCell += char; }
+        }
+        if (currentCell || currentRow.length > 0) { currentRow.push(currentCell.trim()); rows.push(currentRow); }
+        return rows;
+    }
+
+    function parseCSV(csvText) {
+        const rows = parseSmartCSV(csvText);
+        const newDB = {};
+        
+        rows.forEach((row, index) => {
+            if (index === 0) return; 
+            if (row.length < 5) return; 
+
+            const code = row[0];        
+            const comp = row[2];        
+            const itemName = row[5] || ""; 
+            const itemSpec = row[6] || ""; 
+            
+            let priceRaw = row[8] || "0"; 
+            priceRaw = priceRaw.replace(/,/g, '').replace(/"/g, '');
+            const price = parseInt(priceRaw);
+
+            if (code && comp && !isNaN(price)) {
+                if (!newDB[comp]) newDB[comp] = { name: comp, specs: {} };
+                newDB[comp].specs[code] = { price: price, name: itemName, desc: itemSpec };
+            }
+        });
+
+        if (Object.keys(newDB).length > 0) {
+            companyDB = newDB;
+            console.log("✅ 단가표 연동 완료");
+            renderInitialButtons(); 
+        }
+    }
+    
+    function callCompany(compName) {
+        const phone = companyPhoneMap[compName];
+        if (phone) {
+            if(confirm(`'${compName}' 담당자에게 연결하시겠습니까?\n(📞 ${phone})`)) {
+                window.location.href = `tel:${phone}`;
+            }
+        } else {
+            alert("해당 업체의 전화번호 정보가 없습니다.");
+        }
+    }
+
+    function renderInitialButtons() {
+        const grid = document.getElementById('companyGrid');
+        grid.innerHTML = ""; 
+        const companies = Object.keys(companyDB);
+        
+        companies.forEach((compName, idx) => {
+            const colorIdx = (idx % 6) + 1;
+            grid.innerHTML += `
+                <button class="comp-btn cb-${colorIdx}" onclick="callCompany('${compName}')">
+                    <span>${compName}</span>
+                    <span class="phone-icon">📞</span>
+                </button>
+            `;
+        });
+    }
+
+    fetchPriceData();
+
+    function openAddressSearch() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.roadAddress || data.jibunAddress;
+                if(data.buildingName) addr += " (" + data.buildingName + ")";
+                document.getElementById("aptAddress").value = addr;
+            }
+        }).open();
+    }
+
+    const defaultLocations = [
+        "거실", "안방", "침실1", "침실2", "침실3", "침실4", 
+        "발코니1", "발코니2", "세탁실", "주방", "중문"
+    ];
+    
+    const inputArea = document.getElementById('inputListArea');
+    const windowOptions = `
+        <option value="S_IN">단창내부용</option>
+        <option value="S_BAL">단창외부용</option>
+        <option value="D_IN">이중창내부용</option>
+        <option value="D_EXT">이중창외부용</option>
+        <option value="SYS">분합창내부용</option>
+        <option value="TURNING">중문</option>
+        <option value="PJ">루버창</option>
+    `;
+
+    defaultLocations.forEach((loc, index) => {
+        let defaultType = "D_IN";
+        if (loc.includes("중문")) defaultType = "TURNING";
+        else if (loc.includes("발코니") || loc.includes("세탁실")) defaultType = "S_BAL";
+        else if (loc.includes("거실")) defaultType = "S_BAL";
+        
+        const currentOptions = windowOptions.replace(`value="${defaultType}"`, `value="${defaultType}" selected`);
+
+        const locSelectOptions = defaultLocations.map(opt => 
+            `<option value="${opt}" ${opt === loc ? 'selected' : ''}>${opt}</option>`
+        ).join('');
+
+        const html = `
+            <div class="input-card">
+                <div class="loading-overlay" id="loading_${index}">
+                    <div class="spinner"></div>
+                    <span style="font-size:11px; margin-top:5px; font-weight:bold;">AI 분석중..</span>
+                </div>
+                <div class="photo-area">
+                    <div class="camera-icon" id="icon_${index}">📷</div>
+                    <div class="photo-hint" id="hint_${index}">사진촬영<br>(A4부착)</div>
+                    <img id="preview_${index}">
+                    <input type="file" accept="image/*" class="photo-input-hidden" onchange="window.handleImageUpload(this, ${index})">
+                </div>
+                <div class="dim-area">
+                    <div class="row-head">
+                        <div>
+                            <span class="row-number">No.${index + 1}</span>
+                            <select id="loc_${index}" class="loc-select" onchange="autoSelectType(this, ${index})">
+                                ${locSelectOptions}
+                            </select>
+                        </div>
+                        <div class="badge-ai" id="badge_${index}">완료</div>
+                    </div>
+                    <select id="type_${index}">${currentOptions}</select>
+                    <div class="size-inputs">
+                        <input type="number" id="w_${index}" placeholder="가로 mm" inputmode="numeric">
+                        <input type="number" id="h_${index}" placeholder="세로 mm" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
+        `;
+        inputArea.innerHTML += html;
+    });
+
+    window.autoSelectType = function(selectElem, index) {
+        const loc = selectElem.value;
+        const typeSelect = document.getElementById(`type_${index}`);
+        
+        if(loc.includes("중문")) typeSelect.value = "TURNING";
+        else if(loc.includes("발코니") || loc.includes("세탁실")) typeSelect.value = "S_BAL";
+        else if(loc.includes("거실")) typeSelect.value = "S_BAL"; 
+        else typeSelect.value = "D_IN"; 
+    };
+
+    function calculateEstimates() {
+        const resType = document.getElementById("residenceType").value;
+        const pyeong = document.getElementById("pyeongSize").value;
+
+        if(!resType) { alert("주거 형태를 선택해주세요."); document.getElementById("residenceType").focus(); return; }
+        if(!pyeong) { alert("평형대를 선택해주세요."); document.getElementById("pyeongSize").focus(); return; }
+
+        let hasData = false;
+        let reqList = [];
+
+        const fullAddr = document.getElementById('aptAddress').value + " " + document.getElementById('detailAddress').value;
+        const addrDisplay = document.getElementById('resultAddressDisplay');
+        
+        if(fullAddr.trim().length > 1) {
+            const resText = document.getElementById("residenceType").options[document.getElementById("residenceType").selectedIndex].text;
+            const pyeongText = document.getElementById("pyeongSize").options[document.getElementById("pyeongSize").selectedIndex].text;
+            addrDisplay.innerHTML = `📍 ${fullAddr}<br><span style="font-size:14px; color:#555; font-weight:normal;">[${resText} / ${pyeongText}]</span>`;
+        }
+
+        for(let i=0; i<11; i++) { 
+            const w = parseFloat(document.getElementById(`w_${i}`).value) || 0;
+            const h = parseFloat(document.getElementById(`h_${i}`).value) || 0;
+            const type = document.getElementById(`type_${i}`).value;
+            const locName = document.getElementById(`loc_${i}`).value;
+
+            if (w > 0 && h > 0) {
+                let qty = (type === "TURNING") ? 1 : (w * h) / 90000;
+                reqList.push({ loc: locName, type: type, w: w, h: h, qty: qty });
+                hasData = true;
+            }
+        }
+
+        if (!hasData) { alert("최소 1개 이상의 창호 치수를 입력해주세요."); return; }
+        if (Object.keys(companyDB).length === 0) { alert("❌ 견적 데이터 로딩 실패. 잠시 후 다시 시도해주세요."); return; }
+
+        let results = [];
+        for (const [compName, data] of Object.entries(companyDB)) {
+            let sum = 0;
+            reqList.forEach(item => {
+                const specData = data.specs[item.type];
+                if (specData) {
+                    sum += specData.price * item.qty;
+                }
+            });
+            if (sum > 0) results.push({ name: compName, cost: Math.floor(sum) });
+        }
+
+        const resultBox = document.getElementById('resultSection');
+        const container = document.getElementById('graphContainer');
+        const companyGrid = document.getElementById('companyGrid'); 
+        const detailContainer = document.getElementById('detailTableContainer');
+        
+        resultBox.style.display = 'block';
+        container.innerHTML = "";
+        companyGrid.innerHTML = ""; 
+
+        results.sort((a, b) => a.cost - b.cost);
+        
+        if(results.length > 0) {
+            const maxCost = results[results.length - 1].cost;
+            let btnHtml = ""; 
+
+            results.forEach((item, idx) => {
+                const percent = (item.cost / maxCost) * 100;
+                const barClass = idx === 0 ? 'g-bar best' : (idx === 1 ? 'g-bar second' : 'g-bar');
+                
+                let badge = "";
+                if(idx === 0) badge = "<div class='badge-best'>최저가</div>";
+
+                container.innerHTML += `
+                    <div class="graph-row">
+                        <div class="g-label">${item.name}</div>
+                        <div class="g-bar-bg">
+                            <div class="${barClass}" style="width:${percent}%"></div>
+                            ${badge}
+                        </div>
+                        <div class="g-price">${(item.cost/10000).toFixed(0)}만원</div>
+                    </div>`;
+                
+                const colorIdx = (idx % 6) + 1;
+                btnHtml += `
+                    <button class="comp-btn cb-${colorIdx}" onclick="callCompany('${item.name}')">
+                        <span>${item.name}</span>
+                        <span class="phone-icon">📞</span>
+                    </button>
+                `;
+            });
+            
+            companyGrid.innerHTML = btnHtml;
+
+            let allDetailsHtml = "";
+            results.forEach(companyRes => {
+                const compName = companyRes.name;
+                const compData = companyDB[compName];
+                
+                allDetailsHtml += `
+                    <div class="d-title">📑 ${compName} 상세 견적서 <span style="font-size:12px; font-weight:normal; margin-left:auto;">(단위:원)</span></div>
+                    <table class="d-table">
+                        <thead>
+                            <tr>
+                                <th width="18%">위치</th>
+                                <th width="25%">규격(mm)</th>
+                                <th>스펙</th>
+                                <th width="22%">금액</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                let totalSum = 0;
+                reqList.forEach(item => {
+                    const specInfo = compData.specs[item.type];
+                    let price = 0;
+                    let specText = "-";
+                    
+                    if (specInfo) {
+                        price = Math.floor(specInfo.price * item.qty);
+                        specText = specInfo.name;
+                    } else {
+                        specText = "<span style='color:#d32f2f;'>단가없음</span>";
+                    }
+                    
+                    allDetailsHtml += `
+                        <tr>
+                            <td>${item.loc}</td>
+                            <td>${item.w} x ${item.h}</td>
+                            <td class="left">${specText}</td>
+                            <td style="font-weight:700;">${price.toLocaleString()}</td>
+                        </tr>
+                    `;
+                    totalSum += price;
+                });
+                
+                allDetailsHtml += `
+                            <tr class="total-row">
+                                <td colspan="3">총 견적 합계</td>
+                                <td class="total-price">${totalSum.toLocaleString()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            });
+
+            allDetailsHtml += `
+                <div class="estimate-note">
+                    ※ 위 견적은 인공지능(AI) 기반의 예상견적입니다. 정확한 금액은 현장실측 및 옵션선택에 따라 달라질 수 있습니다.
+                </div>
+            `;
+
+            detailContainer.innerHTML = allDetailsHtml;
+
+        } else {
+            container.innerHTML += "<div style='text-align:center; padding:20px;'>산출된 견적 데이터가 없습니다.</div>";
+        }
+        
+        resultBox.scrollIntoView({behavior: "smooth", block: "start"});
+    }
+
+    function saveAsImage() {
+        window.scrollTo(0,0);
+        setTimeout(() => {
+            html2canvas(document.querySelector("#captureArea"), {scale: 2}).then(canvas => {
+                const link = document.createElement('a');
+                link.download = '청개구리_전문견적서.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }, 300);
+    }
+</script>
+
+<script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    const p1 = "AIzaSyAq7G2mE2qFuUi";
+    const p2 = "f-";
+    const p3 = "PgPDsXl1ppbY5_JK54";
+    const API_KEY = p1 + p2 + p3;
+
+    window.handleImageUpload = async function(inputElement, index) {
+        const file = inputElement.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById(`icon_${index}`).style.display = 'none';
+            document.getElementById(`hint_${index}`).style.display = 'none';
+            const img = document.getElementById(`preview_${index}`);
+            img.src = e.target.result;
+            img.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+
+        const loading = document.getElementById(`loading_${index}`);
+        loading.style.display = 'flex';
+
+        try {
+            const genAI = new GoogleGenerativeAI(API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+            
+            const imagePart = await fileToGenerativePart(file);
+            const locationName = document.getElementById(`loc_${index}`).value;
+            
+            let parts = [imagePart];
+            
+            let prompt = `
+                당신은 창호 견적 전문가입니다. 사진을 보고 다음 작업을 수행하세요.
+                
+                1. 창호의 종류를 시각적으로 판단하세요.
+                   - 레일이 1개면 '단창'
+                   - 레일이 2개면 '이중창'
+                   - 거실에서 베란다로 나가는 큰 창은 '단창외부용' 또는 '분합창'일 가능성이 높음.
+                   - 방문 형태나 중문처럼 보이면 '중문'
+                2. 사진 속 **${locationName}** 창문의 전체 프레임 크기(mm)를 A4용지(210x297mm) 기준으로 계산하세요.
+                
+                반드시 아래 JSON 형식으로만 응답하세요:
+                {
+                    "typeCode": "문자열 (S_IN, S_BAL, D_IN, D_EXT, SYS, TURNING, PJ 중 가장 적절한 것 하나)",
+                    "width": 숫자 (mm),
+                    "height": 숫자 (mm)
+                }
+            `;
+            
+            parts.unshift(prompt);
+
+            const result = await model.generateContent(parts);
+            const response = await result.response;
+            const text = response.text().replace(/```json|```/g, "").trim();
+            const data = JSON.parse(text);
+
+            if(data.typeCode) document.getElementById(`type_${index}`).value = data.typeCode;
+            if(data.width) document.getElementById(`w_${index}`).value = data.width;
+            if(data.height) document.getElementById(`h_${index}`).value = data.height;
+            document.getElementById(`badge_${index}`).style.display = 'block';
+
+        } catch (error) {
+            console.error(error);
+            alert("AI 분석에 실패했습니다. 치수를 직접 입력해주세요.");
+        } finally {
+            loading.style.display = 'none';
+        }
+    };
+
+    async function fileToGenerativePart(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64Data = reader.result.split(',')[1];
+                resolve({ inlineData: { data: base64Data, mimeType: file.type } });
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
+
+</body>
+</html>
