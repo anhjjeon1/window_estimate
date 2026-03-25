@@ -40,73 +40,45 @@ input,select,button{font-family:inherit;}
 .bt{width:30px;height:30px;border-radius:7px;border:1px solid var(--brd);background:var(--card);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--tr)}
 .bt:hover{background:var(--card2);color:var(--txt)}
 
-/* ═══ COMPACT INFO STRIP ═══ */
-.info-strip{
+/* ═══ ACTION BANNERS ═══ */
+.act-banners{
   position:relative;z-index:1;
-  background:linear-gradient(135deg,#3562d9,#4a7cf5,#059669);
-  color:#fff;padding:0;cursor:pointer;
-  border-bottom:1px solid rgba(255,255,255,.15);
-  user-select:none;transition:var(--tr);
+  display:flex;gap:0;border-bottom:1px solid var(--brd);
 }
-.info-strip:hover{filter:brightness(1.05)}
-.strip-main{
+.act-ban{
+  flex:1;cursor:pointer;user-select:none;transition:var(--tr);
+  overflow:hidden;
+}
+.act-ban.free{background:linear-gradient(135deg,#059669,#34d399)}
+.act-ban.paid{background:linear-gradient(135deg,#3562d9,#6b85ff)}
+.act-ban:hover{filter:brightness(1.06)}
+.act-ban-main{
   display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 20px;flex-wrap:wrap;
+  padding:11px 14px;color:#fff;
 }
-.strip-heart{font-size:14px;animation:pulse 1.5s ease infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-.strip-text{font-size:12px;font-weight:600;letter-spacing:-.2px}
-.strip-text b{font-weight:800}
-.strip-divider{width:1px;height:14px;background:rgba(255,255,255,.3);flex-shrink:0}
-.strip-price{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;letter-spacing:-.3px}
-.strip-status{
-  display:flex;align-items:center;gap:4px;
-  font-size:11px;font-weight:600;opacity:.9;
-}
-.strip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.strip-dot.active{background:#6fff6f;box-shadow:0 0 4px rgba(111,255,111,.5)}
-.strip-dot.inactive{background:rgba(255,255,255,.4)}
-.strip-arrow{
-  font-size:10px;margin-left:4px;transition:transform .3s ease;flex-shrink:0;
-}
-.info-strip.open .strip-arrow{transform:rotate(180deg)}
-/* 펼쳐지는 상세 패널 */
-.strip-detail{
+.act-ban-label{font-size:13px;font-weight:700;letter-spacing:-.2px}
+.act-ban-label small{font-size:10px;font-weight:500;opacity:.85}
+.act-ban-arrow{font-size:9px;color:#fff;opacity:.7;transition:transform .3s ease}
+.act-ban.open .act-ban-arrow{transform:rotate(180deg)}
+.act-ban-detail{
   max-height:0;overflow:hidden;transition:max-height .35s ease;
-  background:rgba(0,0,0,.15);
+  background:rgba(0,0,0,.1);
 }
-.info-strip.open .strip-detail{max-height:400px}
-.strip-detail-inner{
-  padding:14px 20px;display:flex;gap:12px;flex-wrap:wrap;
-  align-items:stretch;justify-content:center;max-width:800px;margin:0 auto;
+.act-ban.open .act-ban-detail{max-height:200px}
+.act-ban-info{
+  padding:10px 14px 6px;font-size:11px;color:#fff;line-height:1.6;
+  text-align:center;opacity:.9;
 }
-.sd-card{
-  flex:1;min-width:180px;max-width:300px;
-  background:rgba(255,255,255,.12);backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,.15);border-radius:var(--r);
-  padding:14px;text-align:center;
-}
-.sd-card-title{font-size:11px;font-weight:700;opacity:.8;margin-bottom:6px;letter-spacing:.5px}
-.sd-card-price{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px}
-.sd-card-desc{font-size:10px;opacity:.8;line-height:1.5;margin-bottom:10px}
-.sd-card-features{list-style:none;text-align:left;font-size:10px;line-height:1.8;opacity:.9}
-.sd-card-features li::before{content:'✓ ';font-weight:800}
-.sd-btn{
-  margin-top:10px;width:100%;padding:8px;border-radius:7px;border:none;
+.act-ban-btn{
+  display:block;margin:6px auto 10px;
+  padding:8px 24px;border-radius:7px;border:none;
   font-size:12px;font-weight:800;cursor:pointer;transition:var(--tr);
+  background:rgba(255,255,255,.95);
 }
-.sd-btn.free-b{background:rgba(255,255,255,.95);color:#059669}
-.sd-btn.free-b:hover{background:#fff}
-.sd-btn.paid-b{background:rgba(255,255,255,.95);color:var(--ac)}
-.sd-btn.paid-b:hover{background:#fff}
-.sd-btn:disabled{opacity:.4;cursor:not-allowed}
-.sd-don{font-size:10px;margin-top:6px;opacity:.85;font-weight:600}
-.strip-stats{
-  width:100%;display:flex;justify-content:center;gap:20px;
-  padding:8px 20px 10px;font-size:11px;font-weight:600;opacity:.85;
-  border-top:1px solid rgba(255,255,255,.1);
-}
-.strip-stats span{display:flex;align-items:center;gap:4px}
+.act-ban-btn.free-b{color:#059669}
+.act-ban-btn.paid-b{color:#3562d9}
+.act-ban-btn:hover{background:#fff;transform:translateY(-1px)}
+.act-ban-btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* ═══ TOP BAR ═══ */
 .tb{position:relative;z-index:1;background:var(--card);border-bottom:1px solid var(--brd);padding:14px 20px}.tb-in{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
@@ -358,7 +330,8 @@ body.dark .hd{background:rgba(26,35,50,.92)}
 body.dark .tb{background:#243044}
 body.dark .ep{background:linear-gradient(135deg,#1e2d42,#192336);border-right-color:#33445a}
 body.dark .ep:hover{background:linear-gradient(135deg,#253650,#1f2e45)}
-body.dark .info-strip{background:linear-gradient(135deg,#1e3a8a,#3562d9,#047857)}
+body.dark .act-ban.free{background:linear-gradient(135deg,#047857,#059669)}
+body.dark .act-ban.paid{background:linear-gradient(135deg,#1e3a8a,#3562d9)}
 body.dark .pw-card{background:#243044}
 
 /* ═══ RESPONSIVE ═══ */
@@ -374,8 +347,8 @@ body.dark .pw-card{background:#243044}
   .si-label{font-size:10px}
   .bot{grid-template-columns:1fr}
   .rg{grid-template-columns:1fr}
-  .strip-detail-inner{flex-direction:column;align-items:center}
-  .sd-card{max-width:100%;min-width:auto}
+  .act-banners{flex-direction:column}
+  .act-ban-label{font-size:12px}
   .don-bar{font-size:11px;gap:6px}
 }
 </style>
@@ -386,56 +359,39 @@ body.dark .pw-card{background:#243044}
 <header class="hd">
   <div class="logo"><i>AI</i><span>창호 AI <b>자동견적</b></span></div>
   <div class="hdr">
-    <span class="don-badge">💚 기부형 앱</span>
     <span class="ver" id="vb">v1.0</span>
-    <button class="bt" id="btnTh" title="테마 변경">🌞</button>
   </div>
 </header>
 
-<!-- ═══ COMPACT INFO STRIP ═══ -->
-<div class="info-strip" id="infoStrip" onclick="toggleStrip()">
-  <div class="strip-main">
-    <span class="strip-heart">💗</span>
-    <span class="strip-text">1회 <b>5,000원</b> · 50% <b>세이브더칠드런</b> 기부</span>
-    <span class="strip-divider"></span>
-    <span class="strip-status">
-      <span class="strip-dot inactive" id="statusDot"></span>
-      <span id="statusPlan">무료체험 1회</span>
-    </span>
-    <span class="strip-arrow">▼</span>
-  </div>
-  <!-- 클릭 시 펼쳐지는 상세 -->
-  <div class="strip-detail">
-    <div class="strip-detail-inner">
-      <div class="sd-card">
-        <div class="sd-card-title">FREE TRIAL</div>
-        <div class="sd-card-price">무료</div>
-        <div class="sd-card-desc">1회 AI 자동견적 무료 체험</div>
-        <ul class="sd-card-features">
-          <li>업체별 가격 비교</li>
-          <li>견적서 이미지 저장</li>
-          <li>모든 기능 체험</li>
-        </ul>
-        <button class="sd-btn free-b" id="btnFree" onclick="event.stopPropagation();activateFree()">무료 체험 시작</button>
-      </div>
-      <div class="sd-card">
-        <div class="sd-card-title">PER QUOTE</div>
-        <div class="sd-card-price">5,000원</div>
-        <div class="sd-card-desc">견적 1회 · 최저가 비교 · 상세 내역</div>
-        <ul class="sd-card-features">
-          <li>AI 자동견적 1회</li>
-          <li>업체별 최저가 비교</li>
-          <li>견적서 저장 & 공유</li>
-        </ul>
-        <div class="sd-don">💗 2,500원 세이브더칠드런 기부</div>
-        <button class="sd-btn paid-b" onclick="event.stopPropagation();showPaywall()">결제하고 견적받기</button>
-      </div>
+<!-- ═══ ACTION BANNERS ═══ -->
+<div class="act-banners">
+  <div class="act-ban free" id="banFree" onclick="toggleBan('free')">
+    <div class="act-ban-main">
+      <span class="act-ban-label">무료 체험 시작</span>
+      <span class="act-ban-arrow" id="arrowFree">▼</span>
     </div>
-    <div class="strip-stats">
-      <span>남은 견적: <b id="statusQuota">1회</b></span>
-      <span>누적 기부금: <b id="statusDonation" style="color:#ffcdd2">0원</b></span>
+    <div class="act-ban-detail" id="detailFree">
+      <div class="act-ban-info">1회 AI 자동견적 무료 · 업체별 비교 · 견적서 저장</div>
+      <button class="act-ban-btn free-b" id="btnFree" onclick="event.stopPropagation();activateFree()">무료 체험 시작하기</button>
     </div>
   </div>
+  <div class="act-ban paid" id="banPaid" onclick="toggleBan('paid')">
+    <div class="act-ban-main">
+      <span class="act-ban-label">결제하고 견적받기 <small>5,000원/회</small></span>
+      <span class="act-ban-arrow" id="arrowPaid">▼</span>
+    </div>
+    <div class="act-ban-detail" id="detailPaid">
+      <div class="act-ban-info">AI 자동견적 · 최저가 비교 · 상세 내역 · 견적서 공유<br><span style="color:#e91e63;font-weight:700">💗 2,500원 세이브더칠드런 기부 (협의 중)</span></div>
+      <button class="act-ban-btn paid-b" onclick="event.stopPropagation();showPaywall()">💳 결제하기</button>
+    </div>
+  </div>
+</div>
+<!-- hidden status elements -->
+<div style="display:none">
+  <span id="statusDot"></span>
+  <span id="statusPlan"></span>
+  <span id="statusQuota"></span>
+  <span id="statusDonation"></span>
 </div>
 
 <!-- ═══ TOP INFO BAR ═══ -->
@@ -608,7 +564,10 @@ function savePayState() {
   } catch(e) { console.warn('상태 저장 실패:', e); }
 }
 
-function toggleStrip(){document.getElementById('infoStrip').classList.toggle('open')}
+function toggleBan(type){
+  const ban=document.getElementById(type==='free'?'banFree':'banPaid');
+  ban.classList.toggle('open');
+}
 
 function updateStatusUI() {
   const dot = document.getElementById('statusDot');
