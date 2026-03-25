@@ -40,75 +40,73 @@ input,select,button{font-family:inherit;}
 .bt{width:30px;height:30px;border-radius:7px;border:1px solid var(--brd);background:var(--card);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--tr)}
 .bt:hover{background:var(--card2);color:var(--txt)}
 
-/* ═══ DONATION BANNER ═══ */
-.don-banner{
+/* ═══ COMPACT INFO STRIP ═══ */
+.info-strip{
   position:relative;z-index:1;
-  background:linear-gradient(135deg,#e91e63,#ff5252,#ff8a80);
-  color:#fff;padding:14px 20px;text-align:center;
-  font-size:13px;font-weight:600;letter-spacing:-.3px;
-  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#e91e63,#ff5252);
+  color:#fff;padding:0;cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,.15);
+  user-select:none;transition:var(--tr);
 }
-.don-banner .don-heart{font-size:18px;animation:pulse 1.5s ease infinite}
+.info-strip:hover{filter:brightness(1.05)}
+.strip-main{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 20px;flex-wrap:wrap;
+}
+.strip-heart{font-size:14px;animation:pulse 1.5s ease infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-.don-banner .don-text b{font-weight:800}
-.don-banner .don-org{font-size:11px;opacity:.9;margin-left:6px}
-
-/* ═══ PRICING BANNER ═══ */
-.price-banner{
-  position:relative;z-index:1;
-  background:var(--card);border-bottom:1px solid var(--brd);
-  padding:20px;
-}
-.price-inner{max-width:1400px;margin:0 auto;display:flex;gap:16px;align-items:stretch;flex-wrap:wrap}
-.price-card{
-  flex:1;min-width:240px;
-  background:var(--card2);border:2px solid var(--brd);border-radius:var(--rl);
-  padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;
-  transition:var(--tr);position:relative;
-}
-.price-card.free{border-color:rgba(5,150,105,.3);background:linear-gradient(135deg,rgba(5,150,105,.04),var(--card2))}
-.price-card.paid{border-color:rgba(74,124,245,.4);background:linear-gradient(135deg,rgba(74,124,245,.06),var(--card2))}
-.price-card.paid::before{
-  content:'추천';position:absolute;top:-10px;right:16px;
-  background:var(--ac);color:#fff;font-size:10px;font-weight:800;
-  padding:3px 10px;border-radius:8px;
-}
-.price-tag{font-size:11px;font-weight:700;color:var(--txt3);letter-spacing:.5px;margin-bottom:6px}
-.price-name{font-size:18px;font-weight:800;margin-bottom:4px}
-.price-amt{font-family:'Outfit',sans-serif;font-size:32px;font-weight:800;color:var(--ac);letter-spacing:-1px;margin-bottom:4px}
-.price-card.free .price-amt{color:var(--grn)}
-.price-per{font-size:12px;color:var(--txt2);margin-bottom:12px}
-.price-features{list-style:none;text-align:left;width:100%;font-size:12px;color:var(--txt2);line-height:2}
-.price-features li::before{content:'✓ ';color:var(--grn);font-weight:800}
-.price-don{
-  margin-top:auto;padding-top:12px;
-  font-size:11px;color:var(--don);font-weight:700;
+.strip-text{font-size:12px;font-weight:600;letter-spacing:-.2px}
+.strip-text b{font-weight:800}
+.strip-divider{width:1px;height:14px;background:rgba(255,255,255,.3);flex-shrink:0}
+.strip-price{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;letter-spacing:-.3px}
+.strip-status{
   display:flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:600;opacity:.9;
 }
-.price-btn{
-  margin-top:12px;width:100%;padding:12px;border-radius:var(--r);border:none;
-  font-size:14px;font-weight:800;cursor:pointer;transition:var(--tr);
+.strip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.strip-dot.active{background:#6fff6f;box-shadow:0 0 4px rgba(111,255,111,.5)}
+.strip-dot.inactive{background:rgba(255,255,255,.4)}
+.strip-arrow{
+  font-size:10px;margin-left:4px;transition:transform .3s ease;flex-shrink:0;
 }
-.price-btn.free-btn{background:var(--grn);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,.25)}
-.price-btn.free-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(5,150,105,.35)}
-.price-btn.paid-btn{background:linear-gradient(135deg,var(--ac),#6b85ff);color:#fff;box-shadow:0 4px 14px rgba(74,124,245,.3)}
-.price-btn.paid-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(74,124,245,.45)}
-.price-btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important;box-shadow:none!important}
-
-/* ═══ STATUS BAR ═══ */
-.status-bar{
-  position:relative;z-index:1;
-  background:var(--card);border-bottom:1px solid var(--brd);
-  padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
+.info-strip.open .strip-arrow{transform:rotate(180deg)}
+/* 펼쳐지는 상세 패널 */
+.strip-detail{
+  max-height:0;overflow:hidden;transition:max-height .35s ease;
+  background:rgba(0,0,0,.15);
 }
-.status-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
-.status-dot{width:8px;height:8px;border-radius:50%}
-.status-dot.active{background:var(--grn);box-shadow:0 0 6px rgba(5,150,105,.4)}
-.status-dot.inactive{background:var(--brd)}
-.status-label{color:var(--txt2)}
-.status-val{font-family:'JetBrains Mono',monospace;color:var(--txt);font-weight:700}
-.status-val.warn{color:var(--org)}
-.status-val.danger{color:var(--red)}
+.info-strip.open .strip-detail{max-height:400px}
+.strip-detail-inner{
+  padding:14px 20px;display:flex;gap:12px;flex-wrap:wrap;
+  align-items:stretch;justify-content:center;max-width:800px;margin:0 auto;
+}
+.sd-card{
+  flex:1;min-width:180px;max-width:300px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.15);border-radius:var(--r);
+  padding:14px;text-align:center;
+}
+.sd-card-title{font-size:11px;font-weight:700;opacity:.8;margin-bottom:6px;letter-spacing:.5px}
+.sd-card-price{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px}
+.sd-card-desc{font-size:10px;opacity:.8;line-height:1.5;margin-bottom:10px}
+.sd-card-features{list-style:none;text-align:left;font-size:10px;line-height:1.8;opacity:.9}
+.sd-card-features li::before{content:'✓ ';font-weight:800}
+.sd-btn{
+  margin-top:10px;width:100%;padding:8px;border-radius:7px;border:none;
+  font-size:12px;font-weight:800;cursor:pointer;transition:var(--tr);
+}
+.sd-btn.free-b{background:rgba(255,255,255,.95);color:#059669}
+.sd-btn.free-b:hover{background:#fff}
+.sd-btn.paid-b{background:rgba(255,255,255,.95);color:var(--ac)}
+.sd-btn.paid-b:hover{background:#fff}
+.sd-btn:disabled{opacity:.4;cursor:not-allowed}
+.sd-don{font-size:10px;margin-top:6px;opacity:.85;font-weight:600}
+.strip-stats{
+  width:100%;display:flex;justify-content:center;gap:20px;
+  padding:8px 20px 10px;font-size:11px;font-weight:600;opacity:.85;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.strip-stats span{display:flex;align-items:center;gap:4px}
 
 /* ═══ TOP BAR ═══ */
 .tb{position:relative;z-index:1;background:var(--card);border-bottom:1px solid var(--brd);padding:14px 20px}.tb-in{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
@@ -364,8 +362,7 @@ body.dark .hd{background:rgba(26,35,50,.92)}
 body.dark .tb{background:#243044}
 body.dark .ep{background:linear-gradient(135deg,#1e2d42,#192336);border-right-color:#33445a}
 body.dark .ep:hover{background:linear-gradient(135deg,#253650,#1f2e45)}
-body.dark .don-banner{background:linear-gradient(135deg,#ad1457,#c62828,#e53935)}
-body.dark .price-banner{background:#243044}
+body.dark .info-strip{background:linear-gradient(135deg,#ad1457,#c62828)}
 body.dark .pw-card{background:#243044}
 
 /* ═══ RESPONSIVE ═══ */
@@ -381,8 +378,8 @@ body.dark .pw-card{background:#243044}
   .si-label{font-size:10px}
   .bot{grid-template-columns:1fr}
   .rg{grid-template-columns:1fr}
-  .price-inner{flex-direction:column}
-  .price-card{min-width:auto}
+  .strip-detail-inner{flex-direction:column;align-items:center}
+  .sd-card{max-width:100%;min-width:auto}
   .don-stats{grid-template-columns:1fr 1fr}
 }
 </style>
@@ -399,62 +396,49 @@ body.dark .pw-card{background:#243044}
   </div>
 </header>
 
-<!-- ═══ DONATION BANNER ═══ -->
-<div class="don-banner">
-  <span class="don-heart">💗</span>
-  <span class="don-text">견적 수익의 <b>50%</b>는 <b>세이브더칠드런</b>에 기부됩니다</span>
-  <span class="don-org">(협의 중)</span>
-</div>
-
-<!-- ═══ PRICING SECTION ═══ -->
-<div class="price-banner" id="pricingSection">
-  <div class="price-inner">
-    <!-- 무료 체험 -->
-    <div class="price-card free">
-      <div class="price-tag">FREE TRIAL</div>
-      <div class="price-name">무료 체험</div>
-      <div class="price-amt">무료</div>
-      <div class="price-per">설치 후 바로 이용 가능</div>
-      <ul class="price-features">
-        <li>1회 AI 자동견적 무료 제공</li>
-        <li>업체별 가격 비교</li>
-        <li>견적서 이미지 저장</li>
-        <li>모든 기능 체험 가능</li>
-      </ul>
-      <button class="price-btn free-btn" id="btnFree" onclick="activateFree()">무료 체험 시작</button>
+<!-- ═══ COMPACT INFO STRIP ═══ -->
+<div class="info-strip" id="infoStrip" onclick="toggleStrip()">
+  <div class="strip-main">
+    <span class="strip-heart">💗</span>
+    <span class="strip-text">1회 <b>5,000원</b> · 50% <b>세이브더칠드런</b> 기부</span>
+    <span class="strip-divider"></span>
+    <span class="strip-status">
+      <span class="strip-dot inactive" id="statusDot"></span>
+      <span id="statusPlan">무료체험 1회</span>
+    </span>
+    <span class="strip-arrow">▼</span>
+  </div>
+  <!-- 클릭 시 펼쳐지는 상세 -->
+  <div class="strip-detail">
+    <div class="strip-detail-inner">
+      <div class="sd-card">
+        <div class="sd-card-title">FREE TRIAL</div>
+        <div class="sd-card-price">무료</div>
+        <div class="sd-card-desc">1회 AI 자동견적 무료 체험</div>
+        <ul class="sd-card-features">
+          <li>업체별 가격 비교</li>
+          <li>견적서 이미지 저장</li>
+          <li>모든 기능 체험</li>
+        </ul>
+        <button class="sd-btn free-b" id="btnFree" onclick="event.stopPropagation();activateFree()">무료 체험 시작</button>
+      </div>
+      <div class="sd-card">
+        <div class="sd-card-title">PER QUOTE</div>
+        <div class="sd-card-price">5,000원</div>
+        <div class="sd-card-desc">견적 1회 · 최저가 비교 · 상세 내역</div>
+        <ul class="sd-card-features">
+          <li>AI 자동견적 1회</li>
+          <li>업체별 최저가 비교</li>
+          <li>견적서 저장 & 공유</li>
+        </ul>
+        <div class="sd-don">💗 2,500원 세이브더칠드런 기부</div>
+        <button class="sd-btn paid-b" onclick="event.stopPropagation();showPaywall()">결제하고 견적받기</button>
+      </div>
     </div>
-    <!-- 유료 (1회 견적) -->
-    <div class="price-card paid">
-      <div class="price-tag">PER QUOTE</div>
-      <div class="price-name">1회 견적</div>
-      <div class="price-amt">5,000원</div>
-      <div class="price-per">견적 1회 발급 기준</div>
-      <ul class="price-features">
-        <li>AI 자동견적 1회</li>
-        <li>업체별 가격 비교 (최저가 표시)</li>
-        <li>상세 내역 포함 견적서</li>
-        <li>견적서 이미지 저장 & 공유</li>
-      </ul>
-      <div class="price-don">💗 2,500원은 세이브더칠드런에 기부</div>
-      <button class="price-btn paid-btn" onclick="showPaywall()">결제하고 견적받기</button>
+    <div class="strip-stats">
+      <span>남은 견적: <b id="statusQuota">1회</b></span>
+      <span>누적 기부금: <b id="statusDonation" style="color:#ffcdd2">0원</b></span>
     </div>
-  </div>
-</div>
-
-<!-- ═══ STATUS BAR ═══ -->
-<div class="status-bar" id="statusBar">
-  <div class="status-item">
-    <div class="status-dot inactive" id="statusDot"></div>
-    <span class="status-label">이용권:</span>
-    <span class="status-val" id="statusPlan">미구매</span>
-  </div>
-  <div class="status-item">
-    <span class="status-label">남은 견적:</span>
-    <span class="status-val warn" id="statusQuota">0회</span>
-  </div>
-  <div class="status-item">
-    <span class="status-label">누적 기부금:</span>
-    <span class="status-val" id="statusDonation" style="color:var(--don)">0원</span>
   </div>
 </div>
 
@@ -648,6 +632,8 @@ function savePayState() {
   } catch(e) { console.warn('상태 저장 실패:', e); }
 }
 
+function toggleStrip(){document.getElementById('infoStrip').classList.toggle('open')}
+
 function updateStatusUI() {
   const dot = document.getElementById('statusDot');
   const plan = document.getElementById('statusPlan');
@@ -659,28 +645,22 @@ function updateStatusUI() {
   const remaining = payState.freeRemaining + payState.paidQuota;
 
   if (remaining > 0) {
-    dot.className = 'status-dot active';
+    dot.className = 'strip-dot active';
     if (payState.paidQuota > 0) {
-      plan.textContent = '유료 이용권';
-      plan.style.color = 'var(--ac)';
+      plan.textContent = '유료 ' + remaining + '회';
     } else if (payState.freeRemaining > 0) {
-      plan.textContent = '무료 체험';
-      plan.style.color = 'var(--grn)';
+      plan.textContent = '무료체험 ' + remaining + '회';
     }
     quota.textContent = remaining + '회';
-    quota.className = 'status-val';
-    quota.style.color = remaining <= 1 ? 'var(--org)' : 'var(--grn)';
   } else {
-    dot.className = 'status-dot inactive';
+    dot.className = 'strip-dot inactive';
     plan.textContent = '이용권 없음';
-    plan.style.color = 'var(--txt3)';
     quota.textContent = '0회';
-    quota.className = 'status-val danger';
   }
 
   donation.textContent = nf(payState.totalDonation) + '원';
-  totalDon.textContent = nf(payState.totalDonation) + '원';
-  totalQ.textContent = payState.totalQuotes + '건';
+  if(totalDon) totalDon.textContent = nf(payState.totalDonation) + '원';
+  if(totalQ) totalQ.textContent = payState.totalQuotes + '건';
 
   // 무료 버튼 상태
   const freeBtn = document.getElementById('btnFree');
