@@ -66,14 +66,28 @@ input,select,button{font-family:inherit;}
 }
 .act-ban.open .act-ban-detail{max-height:200px}
 .act-ban.guide{background:linear-gradient(135deg,#6b7280,#9ca3af)}
-.act-ban.guide.open .act-ban-detail{max-height:600px}
-.guide-content{
-  padding:12px 14px;font-size:11px;color:#fff;line-height:1.7;
-  text-align:left;
+/* Guide Modal */
+.guide-modal{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:16px;
 }
-.guide-content h4{font-size:12px;font-weight:800;margin:10px 0 4px;display:flex;align-items:center;gap:5px}
-.guide-content h4:first-child{margin-top:0}
-.guide-content p{opacity:.9;margin:0 0 2px;padding-left:2px}
+.guide-modal.show{display:flex}
+.guide-card{
+  background:var(--card);border-radius:16px;padding:28px 24px;
+  max-width:520px;width:100%;max-height:85vh;overflow-y:auto;
+  box-shadow:0 24px 60px rgba(0,0,0,.25);
+  animation:pwIn .35s ease;
+}
+.guide-card-title{font-size:18px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.guide-card h4{font-size:13px;font-weight:800;color:var(--ac);margin:14px 0 5px;display:flex;align-items:center;gap:5px}
+.guide-card h4:first-of-type{margin-top:0}
+.guide-card p{font-size:12px;color:var(--txt2);line-height:1.7;margin:0 0 2px;padding-left:2px}
+.guide-close{
+  display:block;margin:20px auto 0;padding:10px 32px;border-radius:var(--r);border:none;
+  background:var(--ac);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);
+}
+.guide-close:hover{background:var(--ac2);transform:translateY(-1px)}
 .act-ban-info{
   padding:10px 14px 6px;font-size:11px;color:#fff;line-height:1.6;
   text-align:center;opacity:.9;
@@ -385,24 +399,9 @@ body.dark .pw-card{background:#243044}
 
 <!-- ═══ ACTION BANNERS ═══ -->
 <div class="act-banners">
-  <div class="act-ban guide" id="banGuide" onclick="toggleBan('guide')">
+  <div class="act-ban guide" onclick="openGuide()">
     <div class="act-ban-main">
       <span class="act-ban-label">📖 사용설명서</span>
-      <span class="act-ban-arrow" id="arrowGuide">▼</span>
-    </div>
-    <div class="act-ban-detail" id="detailGuide">
-      <div class="guide-content">
-        <h4>1️⃣ 무료 체험</h4>
-        <p>「무료 체험 시작」을 누르면 1회 무료 견적을 받을 수 있습니다. 모든 기능을 체험해 보세요.</p>
-        <h4>2️⃣ 결제 방법</h4>
-        <p>「결제하고 견적받기」를 누르면 1회 5,000원으로 견적을 받을 수 있습니다. 결제 금액의 50%(2,500원)는 세이브더칠드런에 기부됩니다.</p>
-        <h4>3️⃣ 창호 입력</h4>
-        <p>각 창호의 위치(거실, 안방 등)와 종류를 선택하고, 가로·세로 크기를 cm 단위로 입력하세요. 사진촬영도 가능합니다.</p>
-        <h4>4️⃣ 견적 비교</h4>
-        <p>「⚡ 견적 비교」를 누르면 제휴 업체별 최저가를 AI가 자동 비교 분석합니다.</p>
-        <h4>5️⃣ 견적서 저장</h4>
-        <p>「📸 저장」을 누르면 견적서를 이미지로 저장하여 공유할 수 있습니다.</p>
-      </div>
     </div>
   </div>
   <div class="act-ban free" id="banFree" onclick="toggleBan('free')">
@@ -550,6 +549,24 @@ body.dark .pw-card{background:#243044}
   </div>
 </div>
 
+<!-- ═══ GUIDE MODAL ═══ -->
+<div class="guide-modal" id="guideModal" onclick="if(event.target===this)closeGuide()">
+  <div class="guide-card">
+    <div class="guide-card-title">📖 사용설명서</div>
+    <h4>1️⃣ 무료 체험</h4>
+    <p>「무료 체험 시작」을 누르면 1회 무료 견적을 받을 수 있습니다. 모든 기능을 체험해 보세요.</p>
+    <h4>2️⃣ 결제 방법</h4>
+    <p>「결제하고 견적받기」를 누르면 1회 5,000원으로 견적을 받을 수 있습니다. 결제 금액의 50%(2,500원)는 세이브더칠드런에 기부됩니다.</p>
+    <h4>3️⃣ 창호 입력</h4>
+    <p>각 창호의 위치(거실, 안방 등)와 종류를 선택하고, 가로·세로 크기를 cm 단위로 입력하세요. 사진촬영도 가능합니다.</p>
+    <h4>4️⃣ 견적 비교</h4>
+    <p>「⚡ 견적 비교」를 누르면 제휴 업체별 최저가를 AI가 자동 비교 분석합니다.</p>
+    <h4>5️⃣ 견적서 저장</h4>
+    <p>「📸 저장」을 누르면 견적서를 이미지로 저장하여 공유할 수 있습니다.</p>
+    <button class="guide-close" onclick="closeGuide()">닫기</button>
+  </div>
+</div>
+
 <footer class="ft">
   © 2026 창호 AI 자동견적 — 기부형 앱 | 수익의 50%는 세이브더칠드런에 기부됩니다 (협의 중)<br>
   <span id="fv">v1.0</span> | 본 견적은 참고용이며 실제 시공가와 차이가 있을 수 있습니다.
@@ -592,10 +609,12 @@ function savePayState() {
 }
 
 function toggleBan(type){
-  const ids={free:'banFree',paid:'banPaid',guide:'banGuide'};
+  const ids={free:'banFree',paid:'banPaid'};
   const ban=document.getElementById(ids[type]);
   if(ban)ban.classList.toggle('open');
 }
+function openGuide(){document.getElementById('guideModal').classList.add('show')}
+function closeGuide(){document.getElementById('guideModal').classList.remove('show')}
 
 function updateStatusUI() {
   const dot = document.getElementById('statusDot');
