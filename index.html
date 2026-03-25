@@ -29,10 +29,10 @@ input,select,button{font-family:inherit;}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
 
 /* ═══ HEADER ═══ */
-.hd{position:sticky;top:0;z-index:100;background:rgba(238,240,244,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:9px}
-.logo i{width:40px;height:28px;background:linear-gradient(135deg,var(--ac),var(--grn));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px}
-.logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.5px}
+.hd{position:sticky;top:0;z-index:100;background:rgba(238,240,244,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:46px;padding:0 12px;display:flex;align-items:center;justify-content:center}
+.logo{display:flex;align-items:center;gap:8px}
+.logo i{width:38px;height:20px;background:linear-gradient(135deg,var(--ac),var(--grn));border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px}
+.logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.3px}
 .logo b{color:var(--ac)}
 .hdr{display:flex;align-items:center;gap:10px}
 .ver{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ac2);background:var(--glow);border:1px solid rgba(79,110,247,.3);padding:3px 10px;border-radius:16px}
@@ -391,8 +391,9 @@ body.dark .pw-card{background:#243044}
 
 <!-- ═══ HEADER ═══ -->
 <header class="hd">
-  <div class="logo"><i>기부앱</i><span>창호 AI <b>자동견적</b></span></div>
-  <div class="hdr">
+  <div class="logo">
+    <i>기부앱</i>
+    <span>창호 AI <b>자동견적</b></span>
     <span class="ver" id="vb">v1.0</span>
   </div>
 </header>
