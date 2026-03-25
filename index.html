@@ -409,12 +409,10 @@ body.dark .pw-card{background:#243044}
 <div class="tb" id="captureArea">
   <div class="tb-in">
     <div style="display:flex;gap:6px;width:100%">
-      <input class="ti" id="inAddr" placeholder="주소 — 아파트/건물명 검색 (클릭)" readonly onclick="openAddr()" style="flex:1;cursor:pointer">
+      <input class="ti" id="inAddr" placeholder="주소 검색 (예: 래미안 101동 1501호)" readonly onclick="openAddr()" style="flex:1;cursor:pointer">
       <button class="ba" onclick="openAddr()">🔍</button>
     </div>
     <div class="top-row2">
-      <div class="r2f"><input class="ti" id="inDong" placeholder="동"></div>
-      <div class="r2f"><input class="ti" id="inHo" placeholder="호"></div>
       <div class="r2f grow2">
         <select class="ts" id="inRes">
           <option value="" disabled selected>주거형태</option>
@@ -439,7 +437,7 @@ body.dark .pw-card{background:#243044}
 <!-- ═══ MAIN ═══ -->
 <div class="mn">
   <div class="st">
-    <div class="ic ib">🪟</div> 창호 입력
+    <div class="ic ib">📐</div> 창호 입력
     <span class="sb" id="eCnt">7개소</span>
   </div>
   <div class="ents" id="entsC"></div>
