@@ -32,10 +32,10 @@ input,select,button{font-family:inherit;}
 .hd{position:sticky;top:0;z-index:100;background:rgba(238,240,244,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:46px;padding:0 12px;display:flex;align-items:center;justify-content:center}
 .logo{display:flex;align-items:center;gap:8px}
 .logo i{width:38px;height:20px;background:linear-gradient(135deg,var(--ac),var(--grn));border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px}
-.logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.3px}
+.logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.3px}
 .logo b{color:var(--ac)}
 .hdr{display:flex;align-items:center;gap:10px}
-.ver{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ac2);background:var(--glow);border:1px solid rgba(79,110,247,.3);padding:3px 10px;border-radius:16px}
+.ver{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ac2);background:var(--glow);border:1px solid rgba(79,110,247,.3);padding:2px 6px;border-radius:10px}
 .don-badge{font-size:10px;color:var(--don);background:var(--don-g);border:1px solid rgba(233,30,99,.2);padding:3px 10px;border-radius:16px;font-weight:700;display:flex;align-items:center;gap:4px}
 .bt{width:30px;height:30px;border-radius:7px;border:1px solid var(--brd);background:var(--card);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--tr)}
 .bt:hover{background:var(--card2);color:var(--txt)}
@@ -53,8 +53,8 @@ input,select,button{font-family:inherit;}
 .act-ban.paid{background:linear-gradient(135deg,#3562d9,#6b85ff)}
 .act-ban:hover{filter:brightness(1.06)}
 .act-ban-main{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:11px 14px;color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:10px 8px;color:#fff;
 }
 .act-ban-label{font-size:13px;font-weight:700;letter-spacing:-.2px}
 .act-ban-label small{font-size:10px;font-weight:500;opacity:.85}
@@ -378,9 +378,10 @@ body.dark .pw-card{background:#243044}
   .ti,.ts{padding:7px 9px;font-size:12px}
   .bot{grid-template-columns:1fr;gap:12px}
   .rg{grid-template-columns:1fr}
-  .act-ban-main{padding:9px 10px}
-  .act-ban-label{font-size:11px}
-  .act-ban-label small{font-size:9px}
+  .act-ban-main{padding:8px 6px;gap:3px}
+  .act-ban-label{font-size:10px}
+  .act-ban-label small{font-size:8px}
+  .logo span{font-size:17px}
   .don-bar{font-size:10px;gap:5px;padding:10px 10px}
   .cc{padding:14px}
   .bot{margin-top:16px}
@@ -402,12 +403,12 @@ body.dark .pw-card{background:#243044}
 <div class="act-banners">
   <div class="act-ban guide" onclick="openGuide()">
     <div class="act-ban-main">
-      <span class="act-ban-label">📖 사용설명서</span>
+      <span class="act-ban-label">📖 설명서</span>
     </div>
   </div>
   <div class="act-ban free" id="banFree" onclick="toggleBan('free')">
     <div class="act-ban-main">
-      <span class="act-ban-label">무료 체험 시작</span>
+      <span class="act-ban-label">무료체험</span>
       <span class="act-ban-arrow" id="arrowFree">▼</span>
     </div>
     <div class="act-ban-detail" id="detailFree">
@@ -417,7 +418,7 @@ body.dark .pw-card{background:#243044}
   </div>
   <div class="act-ban paid" id="banPaid" onclick="toggleBan('paid')">
     <div class="act-ban-main">
-      <span class="act-ban-label">결제하고 견적받기 <small>5,000원/회</small></span>
+      <span class="act-ban-label">결제견적 <small>5,000원</small></span>
       <span class="act-ban-arrow" id="arrowPaid">▼</span>
     </div>
     <div class="act-ban-detail" id="detailPaid">
