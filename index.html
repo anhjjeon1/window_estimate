@@ -1049,12 +1049,7 @@ function saveImg(){
 }
 window.saveImg=saveImg;window.calc=calc;
 
-/* ═══ THEME ═══ */
-document.getElementById('btnTh').addEventListener('click',()=>{
-  document.body.classList.toggle('dark');
-  document.getElementById('btnTh').textContent=document.body.classList.contains('dark')?'🌙':'🌞';
-  bump();
-});
+/* ═══ THEME (removed button, keep dark mode support) ═══ */
 
 /* ═══ HELPERS ═══ */
 function nf(n){return new Intl.NumberFormat('ko-KR').format(n);}
