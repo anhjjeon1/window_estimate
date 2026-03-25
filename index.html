@@ -29,9 +29,9 @@ input,select,button{font-family:inherit;}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
 
 /* ═══ HEADER ═══ */
-.hd{position:sticky;top:0;z-index:100;background:rgba(238,240,244,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:52px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.hd{position:sticky;top:0;z-index:100;background:rgba(238,240,244,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:9px}
-.logo i{width:32px;height:32px;background:linear-gradient(135deg,var(--ac),var(--grn));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;font-style:normal;letter-spacing:-.5px}
+.logo i{width:40px;height:28px;background:linear-gradient(135deg,var(--ac),var(--grn));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px}
 .logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.5px}
 .logo b{color:var(--ac)}
 .hdr{display:flex;align-items:center;gap:10px}
@@ -96,7 +96,7 @@ input,select,button{font-family:inherit;}
 .ba:hover{background:var(--ac2)}
 
 /* ═══ MAIN ═══ */
-.mn{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:20px}
+.mn{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:12px}
 .st{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .st .ic{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
 .ib{background:var(--glow);color:var(--ac2)}.ig{background:var(--grn-g);color:var(--grn)}.io{background:var(--org-g);color:var(--org)}
@@ -151,7 +151,7 @@ input,select,button{font-family:inherit;}
 .ad{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);text-align:right}
 .ad .av{color:var(--ac);font-weight:600}
 .ep{
-  width:50%;aspect-ratio:4/3;
+  width:50%;aspect-ratio:1/1;
   background:linear-gradient(135deg,#e2e6ee,#d6dbe6);
   border-right:1px solid var(--brd);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -337,20 +337,30 @@ body.dark .pw-card{background:#243044}
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:700px){
-  .top-row2{flex-wrap:wrap}
-  .r2f{width:calc(50% - 4px);min-width:auto}
-  .r2f.grow2{width:calc(50% - 4px);min-width:auto}
+  .mn{padding:8px}
+  .tb{padding:8px 10px}
+  .tb-in{gap:5px}
+  .hd{padding:0 8px;height:42px}
+  .top-row2{flex-wrap:wrap;gap:5px}
+  .r2f{width:calc(50% - 3px);min-width:auto}
+  .r2f.grow2{width:calc(50% - 3px);min-width:auto}
+  .ents{gap:8px}
   .ec{flex-direction:row}
-  .ef{width:55%;padding:10px;gap:5px}
-  .ep{width:45%}.en{font-size:12px}
-  .sl,.sty{font-size:12px;padding:7px 22px 7px 8px}
-  .si{font-size:13px;padding:7px 6px}
-  .si-label{font-size:10px}
-  .bot{grid-template-columns:1fr}
+  .ef{width:55%;padding:8px;gap:4px}
+  .ep{width:45%}.en{font-size:11px}
+  .sl,.sty{font-size:11px;padding:6px 20px 6px 7px}
+  .si{font-size:12px;padding:6px 4px}
+  .si-label{font-size:9px;min-width:22px}
+  .si-unit{font-size:10px}
+  .ti,.ts{padding:7px 9px;font-size:12px}
+  .bot{grid-template-columns:1fr;gap:12px}
   .rg{grid-template-columns:1fr}
+  .act-ban-main{padding:9px 10px}
   .act-ban-label{font-size:11px}
   .act-ban-label small{font-size:9px}
-  .don-bar{font-size:11px;gap:6px}
+  .don-bar{font-size:10px;gap:5px;padding:10px 10px}
+  .cc{padding:14px}
+  .bot{margin-top:16px}
 }
 </style>
 </head>
@@ -358,7 +368,7 @@ body.dark .pw-card{background:#243044}
 
 <!-- ═══ HEADER ═══ -->
 <header class="hd">
-  <div class="logo"><i>AI</i><span>창호 AI <b>자동견적</b></span></div>
+  <div class="logo"><i>기부앱</i><span>창호 AI <b>자동견적</b></span></div>
   <div class="hdr">
     <span class="ver" id="vb">v1.0</span>
   </div>
