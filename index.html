@@ -337,20 +337,16 @@ input,select,button{font-family:inherit;}
   display:flex;align-items:center;justify-content:center;gap:4px;
 }
 
-/* ═══ DONATION INFO SECTION ═══ */
-.don-info{
-  background:var(--card);border:1px solid var(--brd);border-radius:var(--rl);
-  padding:24px;margin-top:24px;
+/* ═══ DONATION COMPACT BAR ═══ */
+.don-bar{
+  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin-top:24px;padding:12px 16px;
+  background:var(--card);border:1px solid var(--brd);border-radius:var(--r);
+  font-size:12px;color:var(--txt2);font-weight:500;
 }
-.don-info-title{font-size:16px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.don-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:16px}
-.don-stat{
-  background:var(--don-g);border:1px solid rgba(233,30,99,.1);border-radius:var(--r);
-  padding:16px;text-align:center;
-}
-.don-stat-val{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--don);letter-spacing:-1px}
-.don-stat-label{font-size:11px;color:var(--txt2);margin-top:4px;font-weight:600}
-.don-desc{font-size:12px;color:var(--txt2);line-height:1.8;padding:16px;background:var(--card2);border-radius:var(--r)}
+.don-bar b{color:var(--don);font-weight:700}
+.don-bar span:first-child{font-weight:700;color:var(--don)}
+.don-bar-div{color:var(--brd);font-size:10px}
 
 /* ═══ FOOTER ═══ */
 .ft{position:relative;z-index:1;text-align:center;padding:24px;font-size:10px;color:var(--txt3);border-top:1px solid var(--brd);margin-top:30px}
@@ -380,7 +376,7 @@ body.dark .pw-card{background:#243044}
   .rg{grid-template-columns:1fr}
   .strip-detail-inner{flex-direction:column;align-items:center}
   .sd-card{max-width:100%;min-width:auto}
-  .don-stats{grid-template-columns:1fr 1fr}
+  .don-bar{font-size:11px;gap:6px}
 }
 </style>
 </head>
@@ -536,35 +532,15 @@ body.dark .pw-card{background:#243044}
     </div>
   </div>
 
-  <!-- ═══ DONATION INFO SECTION ═══ -->
-  <div class="don-info">
-    <div class="don-info-title">💗 기부형 앱 — 당신의 견적이 따뜻한 도움이 됩니다</div>
-    <div class="don-stats">
-      <div class="don-stat">
-        <div class="don-stat-val">50%</div>
-        <div class="don-stat-label">수익 기부 비율</div>
-      </div>
-      <div class="don-stat">
-        <div class="don-stat-val">2,500원</div>
-        <div class="don-stat-label">견적 1회당 기부금</div>
-      </div>
-      <div class="don-stat">
-        <div class="don-stat-val" id="totalDonDisp">0원</div>
-        <div class="don-stat-label">누적 기부금</div>
-      </div>
-      <div class="don-stat">
-        <div class="don-stat-val" id="totalQuoteDisp">0건</div>
-        <div class="don-stat-label">누적 견적 발급</div>
-      </div>
-    </div>
-    <div class="don-desc">
-      <strong>🤝 세이브더칠드런과 함께합니다 (협의 중)</strong><br><br>
-      창호 AI 자동견적 앱은 <strong>기부형 앱</strong>으로 운영됩니다.<br>
-      견적 1회 이용료 <strong>5,000원</strong> 중 <strong>50%인 2,500원</strong>은 세이브더칠드런에 기부되어<br>
-      도움이 필요한 아이들에게 전달됩니다.<br><br>
-      합리적인 창호 견적과 함께 따뜻한 나눔에 동참해 주세요! 💚<br><br>
-      <span style="font-size:11px;color:var(--txt3)">※ 무료 체험 1회는 기부금에 포함되지 않습니다.</span>
-    </div>
+  <!-- ═══ DONATION COMPACT BAR ═══ -->
+  <div class="don-bar">
+    <span>💗 기부형 앱</span>
+    <span class="don-bar-div">|</span>
+    <span>수익 50% → <b>세이브더칠드런</b> 기부 (협의 중)</span>
+    <span class="don-bar-div">|</span>
+    <span>누적 기부 <b id="totalDonDisp">0원</b></span>
+    <span class="don-bar-div">|</span>
+    <span>견적 <b id="totalQuoteDisp">0건</b></span>
   </div>
 </div>
 
