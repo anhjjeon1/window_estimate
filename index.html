@@ -65,6 +65,15 @@ input,select,button{font-family:inherit;}
   background:rgba(0,0,0,.1);
 }
 .act-ban.open .act-ban-detail{max-height:200px}
+.act-ban.guide{background:linear-gradient(135deg,#6b7280,#9ca3af)}
+.act-ban.guide.open .act-ban-detail{max-height:600px}
+.guide-content{
+  padding:12px 14px;font-size:11px;color:#fff;line-height:1.7;
+  text-align:left;
+}
+.guide-content h4{font-size:12px;font-weight:800;margin:10px 0 4px;display:flex;align-items:center;gap:5px}
+.guide-content h4:first-child{margin-top:0}
+.guide-content p{opacity:.9;margin:0 0 2px;padding-left:2px}
 .act-ban-info{
   padding:10px 14px 6px;font-size:11px;color:#fff;line-height:1.6;
   text-align:center;opacity:.9;
@@ -376,6 +385,26 @@ body.dark .pw-card{background:#243044}
 
 <!-- ═══ ACTION BANNERS ═══ -->
 <div class="act-banners">
+  <div class="act-ban guide" id="banGuide" onclick="toggleBan('guide')">
+    <div class="act-ban-main">
+      <span class="act-ban-label">📖 사용설명서</span>
+      <span class="act-ban-arrow" id="arrowGuide">▼</span>
+    </div>
+    <div class="act-ban-detail" id="detailGuide">
+      <div class="guide-content">
+        <h4>1️⃣ 무료 체험</h4>
+        <p>「무료 체험 시작」을 누르면 1회 무료 견적을 받을 수 있습니다. 모든 기능을 체험해 보세요.</p>
+        <h4>2️⃣ 결제 방법</h4>
+        <p>「결제하고 견적받기」를 누르면 1회 5,000원으로 견적을 받을 수 있습니다. 결제 금액의 50%(2,500원)는 세이브더칠드런에 기부됩니다.</p>
+        <h4>3️⃣ 창호 입력</h4>
+        <p>각 창호의 위치(거실, 안방 등)와 종류를 선택하고, 가로·세로 크기를 cm 단위로 입력하세요. 사진촬영도 가능합니다.</p>
+        <h4>4️⃣ 견적 비교</h4>
+        <p>「⚡ 견적 비교」를 누르면 제휴 업체별 최저가를 AI가 자동 비교 분석합니다.</p>
+        <h4>5️⃣ 견적서 저장</h4>
+        <p>「📸 저장」을 누르면 견적서를 이미지로 저장하여 공유할 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
   <div class="act-ban free" id="banFree" onclick="toggleBan('free')">
     <div class="act-ban-main">
       <span class="act-ban-label">무료 체험 시작</span>
@@ -563,8 +592,9 @@ function savePayState() {
 }
 
 function toggleBan(type){
-  const ban=document.getElementById(type==='free'?'banFree':'banPaid');
-  ban.classList.toggle('open');
+  const ids={free:'banFree',paid:'banPaid',guide:'banGuide'};
+  const ban=document.getElementById(ids[type]);
+  if(ban)ban.classList.toggle('open');
 }
 
 function updateStatusUI() {
