@@ -81,7 +81,7 @@ input,select,button{font-family:inherit;}
 .act-ban-btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* ═══ TOP BAR ═══ */
-.tb{position:relative;z-index:1;background:var(--card);border-bottom:1px solid var(--brd);padding:14px 20px}.tb-in{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.tb{position:relative;z-index:1;background:var(--card);border-bottom:1px solid var(--brd);padding:10px 16px}.tb-in{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
 .top-row2{display:flex;gap:8px;align-items:end}
 .r2f{display:flex;flex-direction:column;gap:3px;min-width:70px;width:80px}
 .r2f.grow2{flex:1;width:auto;min-width:100px}
@@ -138,7 +138,8 @@ input,select,button{font-family:inherit;}
 }
 .sty:focus{border-color:var(--brd-f);box-shadow:0 0 0 2px var(--glow)}
 .sty option{background:var(--card);color:var(--txt)}
-.ef-size{display:flex;align-items:center;gap:6px}
+.ef-size{display:flex;align-items:center;gap:4px}
+.si-unit{font-size:11px;color:var(--txt3);font-weight:600;flex-shrink:0;min-width:20px;text-align:right}
 .si{
   flex:1;min-width:0;background:var(--inp);border:1px solid var(--brd);
   border-radius:7px;padding:9px 8px;color:var(--txt);font-size:14px;font-weight:600;
@@ -347,8 +348,8 @@ body.dark .pw-card{background:#243044}
   .si-label{font-size:10px}
   .bot{grid-template-columns:1fr}
   .rg{grid-template-columns:1fr}
-  .act-banners{flex-direction:column}
-  .act-ban-label{font-size:12px}
+  .act-ban-label{font-size:11px}
+  .act-ban-label small{font-size:9px}
   .don-bar{font-size:11px;gap:6px}
 }
 </style>
@@ -397,35 +398,24 @@ body.dark .pw-card{background:#243044}
 <!-- ═══ TOP INFO BAR ═══ -->
 <div class="tb" id="captureArea">
   <div class="tb-in">
-    <div class="tf g" style="width:100%">
-      <span class="tl">주소</span>
-      <div style="display:flex;gap:6px">
-        <input class="ti" id="inAddr" placeholder="아파트/건물명 검색 (클릭)" readonly onclick="openAddr()" style="flex:1;cursor:pointer">
-        <button class="ba" onclick="openAddr()">🔍</button>
-      </div>
+    <div style="display:flex;gap:6px;width:100%">
+      <input class="ti" id="inAddr" placeholder="주소 — 아파트/건물명 검색 (클릭)" readonly onclick="openAddr()" style="flex:1;cursor:pointer">
+      <button class="ba" onclick="openAddr()">🔍</button>
     </div>
     <div class="top-row2">
-      <div class="tf r2f">
-        <span class="tl">동</span>
-        <input class="ti" id="inDong" placeholder="동">
-      </div>
-      <div class="tf r2f">
-        <span class="tl">호</span>
-        <input class="ti" id="inHo" placeholder="호">
-      </div>
-      <div class="tf r2f grow2">
-        <span class="tl">주거형태</span>
+      <div class="r2f"><input class="ti" id="inDong" placeholder="동"></div>
+      <div class="r2f"><input class="ti" id="inHo" placeholder="호"></div>
+      <div class="r2f grow2">
         <select class="ts" id="inRes">
-          <option value="" disabled selected>선택</option>
+          <option value="" disabled selected>주거형태</option>
           <option value="APT">아파트</option>
           <option value="VILLA">빌라/연립</option>
           <option value="HOUSE">단독주택</option>
         </select>
       </div>
-      <div class="tf r2f grow2">
-        <span class="tl">평형</span>
+      <div class="r2f grow2">
         <select class="ts" id="inPy">
-          <option value="" disabled selected>선택</option>
+          <option value="" disabled selected>평형</option>
           <option value="20">20평형대</option>
           <option value="30">30평형대</option>
           <option value="40">40평형대</option>
@@ -835,11 +825,13 @@ function renderE(){
         <select class="sty" data-id="${e.id}" onchange="chTy(this)">${to}</select>
         <div class="ef-size">
           <span class="si-label">가로</span>
-          <input type="number" class="si" id="ew_${e.id}" value="${e.w}" placeholder="mm" inputmode="numeric" oninput="chSz(${e.id})">
+          <input type="number" class="si" id="ew_${e.id}" value="${e.w}" placeholder="" inputmode="numeric" oninput="chSz(${e.id})">
+          <span class="si-unit">cm</span>
         </div>
         <div class="ef-size">
           <span class="si-label">세로</span>
-          <input type="number" class="si" id="eh_${e.id}" value="${e.h}" placeholder="mm" inputmode="numeric" oninput="chSz(${e.id})">
+          <input type="number" class="si" id="eh_${e.id}" value="${e.h}" placeholder="" inputmode="numeric" oninput="chSz(${e.id})">
+          <span class="si-unit">cm</span>
         </div>
         <div class="ad" id="ea_${e.id}">—</div>
       </div>
