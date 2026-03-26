@@ -65,6 +65,43 @@ input,select,button{font-family:inherit;}
 }
 .act-ban.open .act-ban-detail{max-height:200px}
 .act-ban.guide{background:linear-gradient(135deg,#6b7280,#9ca3af)}
+/* Quick Guide */
+.quick-guide{
+  position:relative;margin:0 10px 4px;padding:12px 14px 10px;
+  background:linear-gradient(135deg,#eff6ff,#eef2ff);
+  border:1px solid #c7d2fe;border-radius:12px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.quick-guide.hide{display:none}
+.guide-steps{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.guide-step{
+  display:flex;align-items:center;gap:4px;
+  background:#fff;border:1px solid #e0e7ff;border-radius:8px;
+  padding:6px 10px;font-size:11px;font-weight:700;color:#3730a3;
+  white-space:nowrap;
+}
+.guide-step .gs-icon{font-size:14px}
+.guide-step .gs-num{
+  width:16px;height:16px;border-radius:50%;
+  background:#4f46e5;color:#fff;font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.guide-arrow{color:#a5b4fc;font-size:12px;font-weight:700}
+.guide-bottom{display:flex;align-items:center;gap:8px}
+.guide-voice-btn{
+  display:flex;align-items:center;gap:4px;
+  background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;
+  border:none;border-radius:16px;padding:5px 14px;
+  font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;
+}
+.guide-voice-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.guide-voice-btn.playing{background:linear-gradient(135deg,#dc2626,#ef4444)}
+.guide-dismiss{
+  position:absolute;top:6px;right:8px;
+  background:none;border:none;color:#94a3b8;font-size:14px;
+  cursor:pointer;padding:2px;line-height:1;
+}
+.guide-dismiss:hover{color:#64748b}
 /* Guide Modal */
 .guide-modal{
   display:none;position:fixed;inset:0;z-index:500;
@@ -397,6 +434,19 @@ body.dark .pw-card{background:#243044}
   <span class="ver" id="vb">v1.0</span>
 </header>
 
+<!-- ═══ QUICK GUIDE ═══ -->
+<div class="quick-guide" id="quickGuide">
+  <button class="guide-dismiss" onclick="closeQuickGuide()">&times;</button>
+  <div class="guide-steps">
+    <div class="guide-step"><span class="gs-num">1</span><span class="gs-icon">📏</span> 크기 입력</div>
+    <span class="guide-arrow">→</span>
+    <div class="guide-step"><span class="gs-num">2</span><span class="gs-icon">⚡</span> 견적 비교</div>
+    <span class="guide-arrow">→</span>
+    <div class="guide-step"><span class="gs-num">3</span><span class="gs-icon">📸</span> 저장·공유</div>
+  </div>
+  <button class="guide-voice-btn" id="voiceGuideBtn" onclick="speakGuide()">🔊 음성 안내</button>
+</div>
+
 <!-- ═══ ACTION BANNERS ═══ -->
 <div class="act-banners">
   <div class="act-ban guide" onclick="openGuide()">
@@ -573,6 +623,33 @@ body.dark .pw-card{background:#243044}
 </footer>
 
 <script>
+/* ═══ QUICK GUIDE ═══ */
+function initQuickGuide(){
+  if(localStorage.getItem('changho_guide_closed')==='1'){
+    document.getElementById('quickGuide').classList.add('hide');
+  }
+}
+function closeQuickGuide(){
+  document.getElementById('quickGuide').classList.add('hide');
+  localStorage.setItem('changho_guide_closed','1');
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+}
+let isSpeaking=false;
+function speakGuide(){
+  const syn=window.speechSynthesis;
+  if(!syn){alert('이 브라우저는 음성 안내를 지원하지 않습니다.');return;}
+  const btn=document.getElementById('voiceGuideBtn');
+  if(isSpeaking){syn.cancel();btn.textContent='🔊 음성 안내';btn.classList.remove('playing');isSpeaking=false;return;}
+  const text='안녕하세요, 창호 AI 자동견적입니다. 사용 방법을 안내드립니다. 첫째, 창호의 가로 세로 크기를 센티미터 단위로 입력하세요. 둘째, 견적 비교 버튼을 누르면 AI가 업체별 최저가를 자동으로 비교합니다. 셋째, 저장 버튼으로 견적서를 이미지로 저장하고 공유할 수 있습니다. 감사합니다.';
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='ko-KR';u.rate=0.9;u.pitch=1;
+  u.onstart=function(){btn.textContent='⏹ 중지';btn.classList.add('playing');isSpeaking=true;};
+  u.onend=function(){btn.textContent='🔊 음성 안내';btn.classList.remove('playing');isSpeaking=false;};
+  u.onerror=function(){btn.textContent='🔊 음성 안내';btn.classList.remove('playing');isSpeaking=false;};
+  syn.speak(u);
+}
+initQuickGuide();
+
 /* ═══ VERSION ═══ */
 let vMajor=1, vMinor=0;
 function loadVer(){try{const s=localStorage.getItem('changho_ver');if(s){const p=JSON.parse(s);vMajor=p.major||1;vMinor=p.minor||0;}}catch(e){}}
