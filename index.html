@@ -43,11 +43,11 @@ input,select,button{font-family:inherit;}
 /* ═══ ACTION BANNERS ═══ */
 .act-banners{
   position:relative;z-index:1;
-  display:flex;gap:0;border-bottom:1px solid var(--brd);
+  display:flex;gap:6px;padding:8px 10px;background:var(--bg);
 }
 .act-ban{
   flex:1;cursor:pointer;user-select:none;transition:var(--tr);
-  overflow:hidden;
+  overflow:hidden;border-radius:10px;
 }
 .act-ban.free{background:linear-gradient(135deg,#059669,#34d399)}
 .act-ban.paid{background:linear-gradient(135deg,#3562d9,#6b85ff)}
@@ -378,6 +378,7 @@ body.dark .pw-card{background:#243044}
   .ti,.ts{padding:7px 9px;font-size:12px}
   .bot{grid-template-columns:1fr;gap:12px}
   .rg{grid-template-columns:1fr}
+  .act-banners{gap:4px;padding:6px 8px}
   .act-ban-main{padding:8px 6px;gap:3px}
   .act-ban-label{font-size:10px}
   .act-ban-label small{font-size:8px}
