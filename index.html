@@ -29,13 +29,12 @@ input,select,button{font-family:inherit;}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
 
 /* ═══ HEADER ═══ */
-.hd{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#1a237e,#0d47a1);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:56px;padding:0 12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.logo{display:flex;align-items:center;gap:8px}
-.logo i{width:38px;height:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px}
-.logo span{font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.3px;color:#fff}
-.logo b{color:#60a5fa}
+.hd{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#1a237e,#0d47a1);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);height:56px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.logo-badge{width:38px;height:20px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;font-family:'Noto Sans KR',sans-serif;font-style:normal;letter-spacing:-.5px;flex-shrink:0}
+.logo-title{flex:1;text-align:center;font-family:'Noto Sans KR','Outfit',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.3px;color:#fff;white-space:nowrap}
+.logo-title b{color:#60a5fa}
 .hdr{display:flex;align-items:center;gap:10px}
-.ver{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 7px;border-radius:5px;position:absolute;right:12px}
+.ver{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:2px 7px;border-radius:5px}
 .don-badge{font-size:10px;color:var(--don);background:var(--don-g);border:1px solid rgba(233,30,99,.2);padding:3px 10px;border-radius:16px;font-weight:700;display:flex;align-items:center;gap:4px}
 .bt{width:30px;height:30px;border-radius:7px;border:1px solid var(--brd);background:var(--card);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--tr)}
 .bt:hover{background:var(--card2);color:var(--txt)}
@@ -382,7 +381,7 @@ body.dark .pw-card{background:#243044}
   .act-ban-main{padding:8px 6px;gap:3px}
   .act-ban-label{font-size:10px}
   .act-ban-label small{font-size:8px}
-  .logo span{font-size:17px}
+  .logo-title{font-size:17px}
   .don-bar{font-size:10px;gap:5px;padding:10px 10px}
   .cc{padding:14px}
   .bot{margin-top:16px}
@@ -393,10 +392,8 @@ body.dark .pw-card{background:#243044}
 
 <!-- ═══ HEADER ═══ -->
 <header class="hd">
-  <div class="logo">
-    <i>기부앱</i>
-    <span>창호 AI <b>자동견적</b></span>
-  </div>
+  <i class="logo-badge">기부앱</i>
+  <span class="logo-title">창호 AI <b>자동견적</b></span>
   <span class="ver" id="vb">v1.0</span>
 </header>
 
